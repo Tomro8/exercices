@@ -10,11 +10,18 @@ int main()
     char item3 = 'c';
 
     List_t *my_list = List_create();
+    List_print(my_list);
     List_push(my_list, &item1);
-    List_push(my_list, &item2);
-    List_push(my_list, &item3);
+    // List_push(my_list, &item2);
+    // List_push(my_list, &item3);
 
     List_print(my_list);
+
+    // printf("\n");
+
+    // List_pop(my_list);
+    // List_print(my_list);
+
 
     return 0;
 }

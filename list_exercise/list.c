@@ -4,9 +4,10 @@
 
 List_t *List_create(void)
 {
-    List_t* linked_list = (List_t *)malloc(sizeof(List_t));
-    linked_list->next = NULL;
-    return linked_list;
+    // List_t* linked_list = (List_t *)malloc(sizeof(List_t));
+    // linked_list->next = NULL;
+    // linked_list->item = NULL;
+    return NULL;
 }
 
 int List_destroy(List_t *pList)
@@ -32,36 +33,50 @@ void* List_get(List_t *pList, unsigned index)
 int List_push(List_t *pList, void *item)
 {
     int result = 0;
-
-    if (pList->item == NULL) // Empty List
+    if (pList == NULL) // Empty List
     {
-        pList->item = item;        
-    }
-    else
-    {
-        while (pList->next != NULL) // Iterate to last node
+        pList = (List_t *)malloc(sizeof(List_t));
+        if (pList == NULL)
         {
-            pList = pList->next;
+            printf("Allocation error\n");
         }
+        pList->next = NULL;
+        pList->item = item;
+        List_print(pList);
+    }
+    // if (pList->item == NULL) // Empty List
+    // {
+    //     pList->item = item;        
+    // }
+    // else
+    // {
+    //     while (pList->next != NULL) // Iterate to last node
+    //     {
+    //         pList = pList->next;
+    //     }
         
-        List_t *new_node = (List_t *) malloc(sizeof(List_t));
-        if (new_node != NULL)
-        {
-            pList->next = new_node;
-            new_node->item = item;
-        }
-        else
-        {
-            result = 1;
-        }
-    }
+    //     List_t *new_node = (List_t *) malloc(sizeof(List_t));
+    //     if (new_node != NULL)
+    //     {
+    //         pList->next = new_node;
+    //         new_node->item = item;
+    //     }
+    //     else
+    //     {
+    //         result = 1;
+    //     }
+    // }
 
     return result;
 }
 
 void* List_pop(List_t *pList)
 {
-    // Cas specifique
+    // 1-node list
+    if (pList->next == NULL)
+    {
+        
+    }
 
     List_t *previous_node;
 
@@ -71,11 +86,24 @@ void* List_pop(List_t *pList)
         pList = pList->next;
     }
 
-    previous_node->next = NULL; // Est-ce que FREE met tout à NULL ? Dans ce cas pas nécessaire
-    free(pList);
-    //Verifier comment free corectement
+    previous_node->next = NULL;
     
-    return NULL;
+    return (void*) pList;
+
+    // while (pList->next != NULL) // Iterate to last node
+    // {
+    //     if (pList->next->next == NULL) // If next node is the last
+    //     {
+    //         pList->next = NULL;
+    //         break;
+    //     }
+    //     else
+    //     {
+    //         pList = pList->next;
+    //     }
+    // }
+
+    // return &pList
 }
 
 int List_getSize(List_t *pList)
@@ -91,6 +119,20 @@ int List_sort(List_t *pList)
 
 void List_print(List_t *pList)
 {
+    // Empty List
+    // if (pList->next == NULL && pList->item == NULL)
+    if (pList == NULL)
+    {
+        printf("Empty Linked List\n");
+        return;
+    }
+
+    if (pList->item == NULL && pList->next == NULL)
+    {
+        printf("Empty Linked List\n");
+        return;
+    }
+
     int idx = 0;
     printf("%d: %p %c\n", idx, pList->item, (*(char*)pList->item));
 

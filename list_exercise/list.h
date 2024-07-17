@@ -1,8 +1,8 @@
 
 typedef struct List_t
 {
-    void *item;
-    struct List_t *next;
+    void* item;
+    struct List_t* next;
 } List_t;
 
 List_t *List_create(void);
